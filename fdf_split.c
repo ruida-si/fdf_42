@@ -13,7 +13,6 @@
 #include "fdf.h"
 
 static int	length(char *line);
-static void	free_mem(char **av, int i);
 
 char	**fdf_split(char *line, int i, int j, char **av)
 {
@@ -29,7 +28,7 @@ char	**fdf_split(char *line, int i, int j, char **av)
 		av[i] = malloc(length(line) + 1);
 		if (!av[i])
 		{
-			free_mem(av, i -1);
+			free_mem((void *)av, i -1);
 			return (NULL);
 		}
 		j = 0;
@@ -55,12 +54,15 @@ static int	length(char *line)
 	return (i);
 }
 
-static void	free_mem(char **av, int i)
+void	free_mem(void **av, int i)
 {
-	while (i >= 0)
+	i = 0;
+	if (!av || !av[i])
+		return ;
+	while (av[i])
 	{
 		free(av[i]);
-		i--;
+		i++;
 	}
 	free(av);
 }
@@ -70,6 +72,8 @@ int	count_wd(char *line)
 	int	i;
 
 	i = 0;
+	if (!line)
+		exit(3);
 	while (*line)
 	{
 		while (*line < 33 && *line)

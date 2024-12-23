@@ -12,7 +12,10 @@
 
 #include "fdf.h"
 
-static int	ft_atoi(char *s);
+static int	ft_atoi(char *s, char **colors);
+static int	check_atoi(char *s);
+static void	get_line(t_point **map, int wd, char **av, char *line);
+static void	free_exit(void **map, void **av, char *line);
 
 int	open_file(char *s)
 {
@@ -22,35 +25,12 @@ int	open_file(char *s)
 	if (fd < 0)
 	{
 		putstr("Could not open file.\n");
-		return (-1);
+		exit(2);
 	}
 	return (fd);
 }
 
-int	get_dimensions(char *s, int ht, int *wd)
-{
-	int		fd;
-	char	*line;
-
-	fd = open_file(s);
-	if (fd == -1)
-		return (0);
-	line = get_next_line(fd);
-	*wd = count_wd(line);
-	while (line && line[0] != '\0')
-	{
-		ht++;
-		free(line);
-		line = NULL;
-		line = get_next_line(fd);
-	}
-	if (line)
-		free(line);
-	close(fd);
-	return (ht);
-}
-
-t_point	**get_line(char *file, int wd, int ht)
+t_point	**get_map(char *file, int wd, int ht)
 {
 	int		fd;
 	char	*line;
@@ -58,16 +38,15 @@ t_point	**get_line(char *file, int wd, int ht)
 	t_point	**map;
 
 	map = malloc(sizeof(t_point *) * (ht));
+	if (!map)
+		exit(5);
 	fd = open_file(file);
-	if (fd == -1)
-		return (NULL);
 	line = get_next_line(fd);
 	while (line && line[0] != '\0')
 	{
 		av = fdf_split(line, 0, 0, NULL);
-		get_map(map, wd, av);
+		get_line(map, wd, av, line);
 		free(line);
-		line = NULL;		
 		line = get_next_line(fd);
 	}
 	if (line)
@@ -76,35 +55,53 @@ t_point	**get_line(char *file, int wd, int ht)
 	return (map);
 }
 
-void	get_map(t_point **map, int wd, char **av)
+static void	get_line(t_point **map, int wd, char **av, char *line)
 {
 	int			z;
 	int			x;
 	static int	y;
+	char		*colors;
 
-	x = 0;	
+	x = 0;
 	map[y] = malloc(sizeof(t_point) * (wd));
+	if (!map[y])
+	{
+		free_mem((void **)map, y -1);
+		exit(5);
+	}
 	while (av[x])
-	{		
-		z = ft_atoi(av[x]);
-		map[y][x].x = x;
-		map[y][x].y = y;
+	{
+		colors = NULL;
+		z = ft_atoi(av[x], &colors);
+		if (z == 0 && !(av[x][0] == '0' && av[x][1] == '\0'))
+			free_exit((void **)map, (void **)av, line);
 		map[y][x].z = z;
 		x++;
+		if (y == 16 && colors)
+			printf("%s\n", colors);
 	}
+	free_mem((void **)av, wd -1);
+	y++;
 	return ;
 }
 
-static int	ft_atoi(char *s)
+static void	free_exit(void **map, void **av, char *line)
+{
+	free_mem(av, 0);
+	free_mem(map, 0);
+	if (line)
+		free(line);
+	exit(6);
+}
+
+static int	ft_atoi(char *s, char **colors)
 {
 	long	n;
 	int		sign;
 
 	n = 0;
 	sign = 1;
-	if (ft_strlen(s) > 11)
-		return (0);
-	if ((s[0] == '-' && s[1] == '0') || (s[0] == '0' && s[1] != '\0'))
+	if (!check_atoi(s))
 		return (0);
 	if (*s == '-')
 	{
@@ -116,8 +113,21 @@ static int	ft_atoi(char *s)
 		n = n * 10 + (*s - '0');
 		s++;
 	}
+	if (*s && *s != ',')
+		return (0);
+	if (*s == ',')
+		*colors = s + 1;
 	n *= sign;
 	if (n > INT_MAX || n < INT_MIN)
 		return (0);
 	return (n);
+}
+
+static int	check_atoi(char *s)
+{
+	if (ft_strlen(s) > 11)
+		return (0);
+	if ((s[0] == '-' && s[1] == '0') || (s[0] == '0' && s[1] != '\0'))
+		return (0);
+	return (1);
 }

@@ -21,18 +21,21 @@
 
 typedef struct s_point
 {
-	int	x;
-	int	y;
 	int	z;
 	int	red;
 	int	green;
 	int	blue;
 }	t_point;
 
+// SPLIT
 char	**fdf_split(char *line, int i, int j, char **av);
-int		get_dimensions(char *s, int ht, int *wd);
-void	get_map(t_point **map, int wd, char **av);
-t_point	**get_line(char *file, int wd, int ht);
+void	free_mem(void **av, int i);
+
+// GET MAP FUNCTIONS
+t_point	**get_map(char *file, int wd, int ht);
+
+// BASIC UTILS
 void	putstr(char *s);
+int		open_file(char *s);
 
 #endif

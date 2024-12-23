@@ -1,0 +1,6 @@
+EXIT 1 error input
+EXIT 2 fd < 0 open file function
+EXIT 3 line NULL
+EXIT 4 not found map wd == 0;
+EXIT 5 fail malloc
+EXIT 6 error handling int atoi function

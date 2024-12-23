@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-#define BUFFER_SIZE 20
+#define BUFFER_SIZE 10
 
 static char	*readfile(int fd, char *buffer, char *line, int buffer_size)
 {
