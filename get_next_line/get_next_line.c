@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruida-si <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ruida-si <ruida-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:51:16 by ruida-si          #+#    #+#             */
-/*   Updated: 2024/11/08 15:51:19 by ruida-si         ###   ########.fr       */
+/*   Updated: 2024/12/27 15:37:07 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,20 @@ static char	*next_call(char *line)
 		return (NULL);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, char **backup)
 {
 	char		*buffer;
 	char		*line;
-	static char	*backup;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-	line = readfile(fd, buffer, backup, BUFFER_SIZE);
+	line = readfile(fd, buffer, *backup, BUFFER_SIZE);
 	if (!line)
 		return (NULL);
-	backup = next_call(line);
+	*backup = next_call(line);
 	return (line);
 }
 

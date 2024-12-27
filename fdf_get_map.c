@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_get_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruida-si <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ruida-si <ruida-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 19:17:34 by ruida-si          #+#    #+#             */
-/*   Updated: 2024/12/21 19:17:39 by ruida-si         ###   ########.fr       */
+/*   Updated: 2024/12/27 18:19:57 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 static int	ft_atoi(char *s, char **colors);
 static int	check_atoi(char *s);
-static void	get_line(t_point **map, int wd, char **av, char *line);
-static void	free_exit(void **map, void **av, char *line);
+static int	get_line(t_point **map, int wd, char **av, int x);
 
 int	open_file(char *s)
 {
@@ -24,7 +23,7 @@ int	open_file(char *s)
 	fd = open(s, O_RDONLY);
 	if (fd < 0)
 	{
-		putstr("Could not open file.\n");
+		perror("Could not open file");
 		exit(2);
 	}
 	return (fd);
@@ -32,22 +31,24 @@ int	open_file(char *s)
 
 t_point	**get_map(char *file, int wd, int ht)
 {
-	int		fd;
-	char	*line;
-	char	**av;
-	t_point	**map;
+	int			fd;
+	char		*line;
+	static char	*backup;
+	char		**av;
+	t_point		**map;
 
 	map = malloc(sizeof(t_point *) * (ht));
 	if (!map)
 		exit(5);
 	fd = open_file(file);
-	line = get_next_line(fd);
+	line = get_next_line(fd, &backup);
 	while (line && line[0] != '\0')
 	{
 		av = fdf_split(line, 0, 0, NULL);
-		get_line(map, wd, av, line);
+		if (!get_line(map, wd, av, 0))
+			free_line(line, backup, 3);
 		free(line);
-		line = get_next_line(fd);
+		line = get_next_line(fd, &backup);
 	}
 	if (line)
 		free(line);
@@ -55,43 +56,35 @@ t_point	**get_map(char *file, int wd, int ht)
 	return (map);
 }
 
-static void	get_line(t_point **map, int wd, char **av, char *line)
+static int	get_line(t_point **map, int wd, char **av, int x)
 {
 	int			z;
-	int			x;
 	static int	y;
 	char		*colors;
 
-	x = 0;
 	map[y] = malloc(sizeof(t_point) * (wd));
 	if (!map[y])
 	{
-		free_mem((void **)map, y -1);
-		exit(5);
+		free_map(map, y -1, av, wd -1);
+		return (0);
 	}
 	while (av[x])
 	{
 		colors = NULL;
 		z = ft_atoi(av[x], &colors);
-		if (z == 0 && !(av[x][0] == '0' && av[x][1] == '\0'))
-			free_exit((void **)map, (void **)av, line);
+		if (z == 0 && !(av[x][0] == '0'
+			&& (av[x][1] == '\0' || av[x][1] == ',')))
+		{
+			free_map(map, y, av, wd -1);
+			return (0);
+		}
 		map[y][x].z = z;
+		get_colors(map, y, x, colors);
 		x++;
-		if (y == 16 && colors)
-			printf("%s\n", colors);
 	}
 	free_mem((void **)av, wd -1);
 	y++;
-	return ;
-}
-
-static void	free_exit(void **map, void **av, char *line)
-{
-	free_mem(av, 0);
-	free_mem(map, 0);
-	if (line)
-		free(line);
-	exit(6);
+	return (1);
 }
 
 static int	ft_atoi(char *s, char **colors)
@@ -127,7 +120,8 @@ static int	check_atoi(char *s)
 {
 	if (ft_strlen(s) > 11)
 		return (0);
-	if ((s[0] == '-' && s[1] == '0') || (s[0] == '0' && s[1] != '\0'))
+	if ((s[0] == '-' && s[1] == '0') || (s[0] == '0'
+			&& (s[1] != '\0' && s[1] != ',')))
 		return (0);
 	return (1);
 }

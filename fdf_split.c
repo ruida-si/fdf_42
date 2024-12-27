@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_split.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruida-si <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ruida-si <ruida-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 18:59:01 by ruida-si          #+#    #+#             */
-/*   Updated: 2024/12/20 18:59:06 by ruida-si         ###   ########.fr       */
+/*   Updated: 2024/12/27 16:29:43 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,12 @@ static int	length(char *line)
 
 void	free_mem(void **av, int i)
 {
-	i = 0;
 	if (!av || !av[i])
 		return ;
-	while (av[i])
+	while (i >= 0)
 	{
 		free(av[i]);
-		i++;
+		i--;
 	}
 	free(av);
 }
@@ -73,7 +72,10 @@ int	count_wd(char *line)
 
 	i = 0;
 	if (!line)
+	{
+		putstr("No content.\n");
 		exit(3);
+	}
 	while (*line)
 	{
 		while (*line < 33 && *line)

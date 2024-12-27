@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ruida-si <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: ruida-si <ruida-si@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 16:39:34 by ruida-si          #+#    #+#              #
-#    Updated: 2024/12/19 16:39:37 by ruida-si         ###   ########.fr        #
+#    Updated: 2024/12/27 19:21:24 by ruida-si         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC = cc
 
 FLAGS = -Werror -Wextra -Wall
 
-SRC = fdf.c fdf_split.c fdf_get_map.c
+SRC = fdf.c fdf_split.c fdf_get_map.c free.c fdf_utils.c
 
 GNL = ./get_next_line/
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruida-si <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ruida-si <ruida-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:57:41 by ruida-si          #+#    #+#             */
-/*   Updated: 2024/12/19 15:57:43 by ruida-si         ###   ########.fr       */
+/*   Updated: 2024/12/27 19:23:53 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,15 @@ typedef struct s_point
 char	**fdf_split(char *line, int i, int j, char **av);
 void	free_mem(void **av, int i);
 
+// FREE MEMORY
+
+void	free_line(char *line, char *backup, int option);
+void	free_map(t_point **map, int y, char **av, int x);
+
 // GET MAP FUNCTIONS
 t_point	**get_map(char *file, int wd, int ht);
+
+void	get_colors(t_point **map, int y, int x, char *colors);
 
 // BASIC UTILS
 void	putstr(char *s);
