@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruida-si <ruida-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:57:26 by ruida-si          #+#    #+#             */
-/*   Updated: 2024/12/27 19:42:51 by ruida-si         ###   ########.fr       */
+/*   Updated: 2024/12/28 14:49:28 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	check_input(char *s, int ac)
 {
 	if (ac != 2 || ft_strlen(s) < 5 || !check_fdf(s))
 	{
-		putstr("Error :: Usage: .fdf file.fdf\n");
+		putstr("Error >> Usage: .fdf file.fdf\n");
 		exit(1);
 	}
 	return (1);

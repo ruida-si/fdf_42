@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/27 15:42:24 by ruida-si          #+#    #+#             */
-/*   Updated: 2024/12/28 14:49:53 by ruida-si         ###   ########.fr       */
+/*   Created: 2024/12/28 17:37:44 by ruida-si          #+#    #+#             */
+/*   Updated: 2024/12/28 19:33:14 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "minilibx-linux/mlx.h"
+#include "minilibx-linux/mlx_int.h"
 
-void	free_line(char *line, char *backup, int option)
+int main()
 {
-	if (line)
-		free(line);
-	if (backup)
-		free(backup);
-	if (option == 1)
-		putstr("Map not found.\n");
-	if (option == 0)
-		putstr("Not regular map.\n");
-	if (option == 3)
-		exit(5);
-	exit(4);
-}
-
-void	free_map(t_point **map, int y, char **av, int x)
-{
-	free_mem((void *)map, y);
-	free_mem((void *)av, x);
+	void	*mlx;
+	void	*mlx_win;
+	
+	mlx = mlx_init();
+	mlx_win = mlx_new_window(mlx, 800, 600, "FDF");
+	mlx_loop(mlx);
 }

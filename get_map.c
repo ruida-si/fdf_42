@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_get_map.c                                      :+:      :+:    :+:   */
+/*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruida-si <ruida-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 19:17:34 by ruida-si          #+#    #+#             */
-/*   Updated: 2024/12/27 18:19:57 by ruida-si         ###   ########.fr       */
+/*   Updated: 2024/12/28 17:35:20 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,7 @@
 static int	ft_atoi(char *s, char **colors);
 static int	check_atoi(char *s);
 static int	get_line(t_point **map, int wd, char **av, int x);
-
-int	open_file(char *s)
-{
-	int	fd;
-
-	fd = open(s, O_RDONLY);
-	if (fd < 0)
-	{
-		perror("Could not open file");
-		exit(2);
-	}
-	return (fd);
-}
+static int	init_map(t_point **map, int wd, char **av, int y);
 
 t_point	**get_map(char *file, int wd, int ht)
 {
@@ -62,12 +50,8 @@ static int	get_line(t_point **map, int wd, char **av, int x)
 	static int	y;
 	char		*colors;
 
-	map[y] = malloc(sizeof(t_point) * (wd));
-	if (!map[y])
-	{
-		free_map(map, y -1, av, wd -1);
+	if (!init_map(map, wd, av, y))
 		return (0);
-	}
 	while (av[x])
 	{
 		colors = NULL;
@@ -84,6 +68,17 @@ static int	get_line(t_point **map, int wd, char **av, int x)
 	}
 	free_mem((void **)av, wd -1);
 	y++;
+	return (1);
+}
+
+static int	init_map(t_point **map, int wd, char **av, int y)
+{
+	map[y] = malloc(sizeof(t_point) * (wd));
+	if (!map[y])
+	{
+		free_map(map, y -1, av, wd -1);
+		return (0);
+	}
 	return (1);
 }
 
