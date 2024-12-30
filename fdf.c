@@ -6,7 +6,7 @@
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:57:26 by ruida-si          #+#    #+#             */
-/*   Updated: 2024/12/28 14:49:28 by ruida-si         ###   ########.fr       */
+/*   Updated: 2024/12/30 20:15:42 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,7 @@ int	main(int ac, char **av)
 	check_input(av[1], ac);
 	ht = get_dimensions(av[1], 0, &wd, 0);
 	map = get_map(av[1], wd, ht);
-	int y = 16;
-	int x = 12;
-	printf("%i\n", map[y][x].red);
-	printf("%i\n", map[y][x].green);
-	printf("%i\n", map[y][x].blue);
+	create_window(map);
 	free_mem((void *)map, ht -1);
 	return (0);
 }

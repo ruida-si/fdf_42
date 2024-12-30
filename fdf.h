@@ -6,7 +6,7 @@
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:57:41 by ruida-si          #+#    #+#             */
-/*   Updated: 2024/12/28 14:56:58 by ruida-si         ###   ########.fr       */
+/*   Updated: 2024/12/30 20:16:03 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct	s_point
 	int	green;
 	int	blue;
 }	t_point;
+
+void	create_window(t_point **map);
 
 // SPLIT
 char	**fdf_split(char *line, int i, int j, char **av);
