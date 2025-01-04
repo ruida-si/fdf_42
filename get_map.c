@@ -6,7 +6,7 @@
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 19:17:34 by ruida-si          #+#    #+#             */
-/*   Updated: 2024/12/28 17:35:20 by ruida-si         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:53:05 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static int	get_line(t_point **map, int wd, char **av, int x)
 			return (0);
 		}
 		map[y][x].z = z;
+		map[y][x].y = y;
+		map[y][x].x = x;
 		get_colors(map, y, x, colors);
 		x++;
 	}

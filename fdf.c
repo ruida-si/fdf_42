@@ -6,7 +6,7 @@
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:57:26 by ruida-si          #+#    #+#             */
-/*   Updated: 2024/12/30 20:15:42 by ruida-si         ###   ########.fr       */
+/*   Updated: 2024/12/31 15:21:20 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int ac, char **av)
 	check_input(av[1], ac);
 	ht = get_dimensions(av[1], 0, &wd, 0);
 	map = get_map(av[1], wd, ht);
-	create_window(map);
+	create_image(map, wd, ht);
 	free_mem((void *)map, ht -1);
 	return (0);
 }

@@ -6,14 +6,14 @@
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 18:22:27 by ruida-si          #+#    #+#             */
-/*   Updated: 2024/12/28 17:35:31 by ruida-si         ###   ########.fr       */
+/*   Updated: 2025/01/04 13:22:50 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	get_ncolor(char **colors, int n, int i, int j);
 static int	check_hexa(char *s);
+static int	get_ncolor(char *s);
 
 int	open_file(char *s)
 {
@@ -34,15 +34,36 @@ void	get_colors(t_point **map, int y, int x, char *colors)
 		colors = NULL;
 	if (!colors)
 	{
-		map[y][x].red = 255;
-		map[y][x].green = 255;
-		map[y][x].blue = 255;
+		map[y][x].color = 0xFF0000;
 		return ;
 	}
 	colors = colors + 2;
-	map[y][x].red = get_ncolor(&colors, 0, 0, 0);
-	map[y][x].green = get_ncolor(&colors, 0, 0, 0);
-	map[y][x].blue = get_ncolor(&colors, 0, 0, 0);
+	map[y][x].color = get_ncolor(colors);
+}
+
+static int	get_ncolor(char *s)
+{
+	int		i;
+	char	*hexa;
+	int		color;
+
+	color = 0;
+	hexa = "0123456789ABCDEF";
+	while (*s)
+	{
+		i = 0;
+		while (hexa[i])
+		{
+			if (*s == hexa[i])
+			{
+				color = color * 16 + i;
+				break ;
+			}
+			i++;
+		}
+		s++;
+	}
+	return (color);
 }
 
 static int	check_hexa(char *s)
@@ -71,37 +92,3 @@ static int	check_hexa(char *s)
 	}
 	return (1);
 }
-
-static int	get_ncolor(char **colors, int n, int i, int j)
-{
-	char	*hexa;
-
-	hexa = "0123456789ABCDEF";
-	while (**colors && j < 2)
-	{
-		i = 0;
-		while (hexa[i])
-		{
-			if (**colors == hexa[i])
-			{
-				n = n * 16 + i;
-				break ;
-			}
-			i++;
-		}
-		j++;
-		(*colors)++;
-	}
-	return (n);
-}
-
-/* int main()
-{
-	char *colors = "FF0FAF";
-	int n = get_ncolor(&colors, 0, 0, 0);
-	printf("%i\n", n);
-	n = get_ncolor(&colors, 0, 0, 0);
-	printf("%i\n", n);
-	n = get_ncolor(&colors, 0, 0, 0);
-	printf("%i\n", n);
-} */
