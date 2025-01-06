@@ -6,7 +6,7 @@
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 14:49:00 by ruida-si          #+#    #+#             */
-/*   Updated: 2024/12/28 14:49:01 by ruida-si         ###   ########.fr       */
+/*   Updated: 2025/01/06 15:56:57 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@ EXIT 1 error input
 EXIT 2 fd < 0 open file function
 EXIT 3 line NULL
 EXIT 4 not found map wd == 0;
-EXIT 5 fail malloc
+EXIT 5 fail atoi
 EXIT 6 error handling int atoi function
+EXIT 7 fail malloc

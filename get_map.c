@@ -6,7 +6,7 @@
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 19:17:34 by ruida-si          #+#    #+#             */
-/*   Updated: 2025/01/03 15:53:05 by ruida-si         ###   ########.fr       */
+/*   Updated: 2025/01/06 15:55:36 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_point	**get_map(char *file, int wd, int ht)
 
 	map = malloc(sizeof(t_point *) * (ht));
 	if (!map)
-		exit(5);
+		exit(7);
 	fd = open_file(file);
 	line = get_next_line(fd, &backup);
 	while (line && line[0] != '\0')
@@ -115,7 +115,7 @@ static int	ft_atoi(char *s, char **colors)
 
 static int	check_atoi(char *s)
 {
-	if (ft_strlen(s) > 11)
+	if (ft_strlen(s) > 20)
 		return (0);
 	if ((s[0] == '-' && s[1] == '0') || (s[0] == '0'
 			&& (s[1] != '\0' && s[1] != ',')))

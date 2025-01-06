@@ -6,7 +6,7 @@
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:57:26 by ruida-si          #+#    #+#             */
-/*   Updated: 2024/12/31 15:21:20 by ruida-si         ###   ########.fr       */
+/*   Updated: 2025/01/06 15:43:28 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static int	get_dimensions(char *s, int ht, int *wd, int fd)
 	while (line && line[0] != '\0')
 	{
 		ht++;
-		if (count_wd(line) != *wd)
-			free_line(line, backup, 0);
+		if (count_wd(line) > *wd)
+			*wd = count_wd(line);
 		free(line);
 		line = get_next_line(fd, &backup);
 	}
@@ -69,7 +69,7 @@ static int	check_input(char *s, int ac)
 {
 	if (ac != 2 || ft_strlen(s) < 5 || !check_fdf(s))
 	{
-		putstr("Error >> Usage: .fdf file.fdf\n");
+		putstr("Error >> Usage: ./fdf file.fdf\n");
 		exit(1);
 	}
 	return (1);
@@ -82,6 +82,8 @@ static int	check_fdf(char *s)
 
 	file = ".fdf";
 	i = ft_strlen(s) - 4;
+	if (s[i -1] == '/')
+		return (0);
 	while (s[i])
 	{
 		if (s[i++] != *file++)

@@ -6,7 +6,7 @@
 #    By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 16:39:34 by ruida-si          #+#    #+#              #
-#    Updated: 2025/01/04 18:42:45 by ruida-si         ###   ########.fr        #
+#    Updated: 2025/01/06 19:36:00 by ruida-si         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = cc
 FLAGS = -Werror -Wextra -Wall -lXext -lX11 -lm -g
 
 SRC = $(GNL_F) fdf.c split.c get_map.c free.c get_colors.c draw.c \
-	get_image_ready.c draw_line.c
+	get_image.c
 
 GNL = ./get_next_line/
 INC = ./includes/
