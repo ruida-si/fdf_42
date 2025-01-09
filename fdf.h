@@ -6,7 +6,7 @@
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:57:41 by ruida-si          #+#    #+#             */
-/*   Updated: 2025/01/06 19:24:45 by ruida-si         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:02:11 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,44 @@
 # include <limits.h>
 # include <math.h>
 
-# define WIDTH 1920
-# define HEIGHT 1080
-
-typedef struct s_data
+typedef struct s_line
 {
+	float	dx;
+	float	dy;
+	int		steps;
+	float	x1;
+	float	y1;
+	int		x;
+	int		y;
+}	t_line;
+
+typedef struct s_rgb
+{
+	int	red;
+	int	green;
+	int	blue;
+}	t_rgb;
+
+typedef struct s_point
+{
+	int	x;
+	int	y;
+	int	z;
+	int	color;
+}	t_point;
+
+typedef struct s_mlx
+{
+	void	*mlx;
+	void	*win;
 	void	*img;
 	int		*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}	t_data;
+	t_point	**map;
+	int		ht;
+}	t_mlx;
 
 typedef struct s_image
 {
@@ -42,14 +69,6 @@ typedef struct s_image
 	int	width;
 	int	height;
 }	t_image;
-
-typedef struct s_point
-{
-	int	x;
-	int	y;
-	int	z;
-	int	color;
-}	t_point;
 
 typedef struct s_map
 {

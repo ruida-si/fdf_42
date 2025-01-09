@@ -6,7 +6,7 @@
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:57:26 by ruida-si          #+#    #+#             */
-/*   Updated: 2025/01/06 15:43:28 by ruida-si         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:29:08 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	main(int ac, char **av)
 	ht = get_dimensions(av[1], 0, &wd, 0);
 	map = get_map(av[1], wd, ht);
 	create_image(map, wd, ht);
-	free_mem((void *)map, ht -1);
 	return (0);
 }
 
@@ -82,8 +81,6 @@ static int	check_fdf(char *s)
 
 	file = ".fdf";
 	i = ft_strlen(s) - 4;
-	if (s[i -1] == '/')
-		return (0);
 	while (s[i])
 	{
 		if (s[i++] != *file++)
