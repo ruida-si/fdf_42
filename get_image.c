@@ -6,7 +6,7 @@
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 17:40:30 by ruida-si          #+#    #+#             */
-/*   Updated: 2025/01/09 17:53:34 by ruida-si         ###   ########.fr       */
+/*   Updated: 2025/01/11 17:27:56 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	key_hook(int keycode, t_mlx *mem);
 static int	to_close(t_mlx *mem);
-void		clean_exit(t_mlx mem);
+static void	clean_exit(t_mlx mem);
 
 static void	fill_image(t_point **map, int **p, t_map mp, t_image image)
 {
@@ -74,7 +74,7 @@ static int	to_close(t_mlx *mem)
 	return (0);
 }
 
-void	clean_exit(t_mlx mem)
+static void	clean_exit(t_mlx mem)
 {
 	mlx_destroy_image(mem.mlx, mem.img);
 	mlx_destroy_window(mem.mlx, mem.win);

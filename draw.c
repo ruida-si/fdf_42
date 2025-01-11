@@ -6,42 +6,14 @@
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:37:44 by ruida-si          #+#    #+#             */
-/*   Updated: 2025/01/09 18:06:18 by ruida-si         ###   ########.fr       */
+/*   Updated: 2025/01/11 18:12:10 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	isometric(t_point **map, int i, int j);
-
-void	draw_line(t_point a, t_point b, int **p, t_image image)
-{
-	int		*img;
-	t_line	line;
-	int		i;
-
-	img = *p;
-	line.dx = b.x - a.x;
-	line.dy = b.y - a.y;
-	if (line.dx > line.dy)
-		line.steps = line.dx;
-	else
-		line.steps = line.dy;
-	line.dx = line.dx / line.steps;
-	line.dy = line.dy / line.steps;
-	line.x1 = a.x;
-	line.y1 = a.y;
-	i = 0;
-	while (i <= line.steps)
-	{
-		line.y = line.y1 - image.y_min;
-		line.x = line.x1 - image.x_min;
-		img[(line.y * image.width) + line.x] = a.color;
-		line.x1 += line.dx;
-		line.y1 += line.dy;
-		i++;
-	}
-}
+static void		isometric(t_point **map, int i, int j);
+static t_point	**copy(t_point **map, int wd, int ht);
 
 static void	get_2d(t_point **map, int wd, int ht, int zoom)
 {
@@ -80,8 +52,8 @@ static void	isometric(t_point **map, int i, int j)
 
 static void	get_dimensions2(t_point **map, int wd, int ht, t_image *image)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	image->x_max = map[0][0].x;
 	image->y_max = map[0][0].y;
@@ -109,14 +81,47 @@ static void	get_dimensions2(t_point **map, int wd, int ht, t_image *image)
 
 void	get_ready(t_point **map, t_image *image, int wd, int ht)
 {
-	int	zoom;
+	int		zoom;
+	t_point	**map2;
 
-	if (wd < 50 && ht < 50)
-		zoom = 20;
-	else
-		zoom = 1;
+	zoom = 1;
+	while (zoom > 0)
+	{
+		map2 = copy(map, wd, ht);
+		get_2d(map2, wd, ht, zoom);
+		get_dimensions2(map2, wd, ht, image);
+		free_mem((void *)map2, ht -1);
+		image->width = image->x_max - image->x_min + 1;
+		image->height = image->y_max - image->y_min + 1;
+		if (image->width > 1920 || image->height > 1000 || zoom > 20)
+			break ;
+		zoom++;
+	}
+	zoom--;
 	get_2d(map, wd, ht, zoom);
 	get_dimensions2(map, wd, ht, image);
 	image->width = image->x_max - image->x_min + 1;
 	image->height = image->y_max - image->y_min + 1;
+}
+
+static t_point	**copy(t_point **map, int wd, int ht)
+{
+	t_point	**map2;
+	int		i;
+	int		j;
+
+	map2 = malloc(sizeof(t_point *) * (ht));
+	i = 0;
+	while (i < ht)
+	{
+		map2[i] = malloc(sizeof(t_point) * wd);
+		j = 0;
+		while (j < wd)
+		{
+			map2[i][j] = map[i][j];
+			j++;
+		}
+		i++;
+	}
+	return (map2);
 }
