@@ -6,7 +6,7 @@
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 18:22:27 by ruida-si          #+#    #+#             */
-/*   Updated: 2025/01/09 17:55:19 by ruida-si         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:10:30 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,16 @@ static int	get_ncolor(char *s)
 	return (color);
 }
 
-static int	check_hexa(char *s)
+static int	check_hexa(char *s)typedef struct s_line
+{
+	float	dx;
+	float	dy;
+	int		steps;
+	float	x1;
+	float	y1;
+	int		x;
+	int		y;
+}	t_line;
 {
 	char	*hexa;
 	char	*hexa2;

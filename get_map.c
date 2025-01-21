@@ -6,7 +6,7 @@
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 19:17:34 by ruida-si          #+#    #+#             */
-/*   Updated: 2025/01/11 16:55:41 by ruida-si         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:14:15 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,16 @@ static int	init_map(t_point **map, int wd, char **av, int y)
 	if (!map[y])
 	{
 		free_map(map, y -1, av, wd -1);
-		return (0);
+		return (0);typedef struct s_line
+{
+	float	dx;
+	float	dy;
+	int		steps;
+	float	x1;
+	float	y1;
+	int		x;
+	int		y;
+}	t_line;
 	}
 	return (1);
 }

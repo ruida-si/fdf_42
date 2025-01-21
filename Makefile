@@ -6,7 +6,7 @@
 #    By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 16:39:34 by ruida-si          #+#    #+#              #
-#    Updated: 2025/01/11 18:13:09 by ruida-si         ###   ########.fr        #
+#    Updated: 2025/01/21 16:55:51 by ruida-si         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,11 +23,15 @@ MLX = ./minilibx-linux/
 
 GNL_F = $(addprefix $(GNL), get_next_line.c get_next_line_utils.c)
 
+OBJ = $(SRC:.c=.o)
+
 NAME = fdf
 
-$(NAME):
+all: $(NAME)
+
+$(NAME): $(OBJ)
 	@make -s -C $(MLX)
-	$(CC) $(FLAGS) $(SRC) $(MLX)libmlx.a -o $(NAME)
+	$(CC) $(FLAGS) $(OBJ) $(MLX)libmlx.a -o $(NAME)
 
 ap: mlx maps
 
@@ -46,8 +50,6 @@ maps:
 	unzip maps.zip
 	rm -rf maps.zip
 	rm -rf __MACOSX
-
-all: $(NAME)
 
 clean:
 	rm -rf $(OBJ)

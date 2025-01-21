@@ -6,7 +6,7 @@
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:57:26 by ruida-si          #+#    #+#             */
-/*   Updated: 2025/01/10 15:09:23 by ruida-si         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:41:56 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static int	get_dimensions(char *s, int ht, int *wd, int fd)
 	while (line && line[0] != '\0')
 	{
 		ht++;
-		if (count_wd(line) > *wd)
-			*wd = count_wd(line);
+		if (count_wd(line) != *wd)
+			free_line(line, backup, 0);
 		free(line);
 		line = get_next_line(fd, &backup);
 	}
