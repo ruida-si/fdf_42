@@ -6,7 +6,7 @@
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:57:41 by ruida-si          #+#    #+#             */
-/*   Updated: 2025/01/21 16:25:39 by ruida-si         ###   ########.fr       */
+/*   Updated: 2025/01/21 20:03:12 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct s_map
 
 // GENERATE IMAGE
 void	get_ready(t_point **map, t_image *image, int wd, int ht);
-void	draw_line(t_point a, t_point b, int **p, t_image image);
+void	draw_line(t_point a, t_point b, int *img, t_image image);
 void	create_image(t_point **map, int wd, int ht);
 
 // SPLIT

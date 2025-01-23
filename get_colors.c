@@ -6,7 +6,7 @@
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 18:22:27 by ruida-si          #+#    #+#             */
-/*   Updated: 2025/01/21 17:10:30 by ruida-si         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:40:14 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	check_hexa(char *s);
 static int	get_ncolor(char *s);
+static int	have_color(t_point **map, int y, int x, char *colors);
 
 int	open_file(char *s)
 {
@@ -35,11 +36,8 @@ void	get_colors(t_point **map, int y, int x, char *colors)
 	rgb.red = 0;
 	rgb.green = 0;
 	rgb.blue = 0;
-	if (!colors || ft_strlen(colors) > 8 || !check_hexa(colors + 2))
-	{
-		map[y][x].color = 0xFFFFFF;
+	if (!have_color(map, y, x, colors))
 		return ;
-	}
 	colors = colors + 2;
 	if (ft_strlen(colors) == 2)
 		rgb.blue = get_ncolor(colors);
@@ -55,6 +53,22 @@ void	get_colors(t_point **map, int y, int x, char *colors)
 		rgb.blue = get_ncolor(colors + 4);
 	}
 	map[y][x].color = (rgb.red << 16) | (rgb.green << 8) | rgb.blue;
+}
+
+static int	have_color(t_point **map, int y, int x, char *colors)
+{
+	if (!colors || (ft_strlen(colors) != 4 && ft_strlen(colors) != 6
+			&& ft_strlen(colors) != 8) || !check_hexa(colors + 2))
+	{
+		map[y][x].color = 0xFFFFFF;
+		return (0);
+	}
+	if (colors[0] != '0' || colors[1] != 'x')
+	{
+		map[y][x].color = 0xFFFFFF;
+		return (0);
+	}
+	return (1);
 }
 
 static int	get_ncolor(char *s)
@@ -86,16 +100,7 @@ static int	get_ncolor(char *s)
 	return (color);
 }
 
-static int	check_hexa(char *s)typedef struct s_line
-{
-	float	dx;
-	float	dy;
-	int		steps;
-	float	x1;
-	float	y1;
-	int		x;
-	int		y;
-}	t_line;
+static int	check_hexa(char *s)
 {
 	char	*hexa;
 	char	*hexa2;

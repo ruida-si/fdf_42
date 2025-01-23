@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   isometric.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:37:44 by ruida-si          #+#    #+#             */
-/*   Updated: 2025/01/21 17:14:44 by ruida-si         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:35:49 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ void	get_ready(t_point **map, t_image *image, int wd, int ht)
 		zoom++;
 	}
 	zoom--;
+	if (zoom < 1)
+		zoom = 1;
 	get_2d(map, wd, ht, zoom);
 	get_dimensions2(map, wd, ht, image);
 	image->width = image->x_max - image->x_min + 1;

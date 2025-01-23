@@ -6,7 +6,7 @@
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 17:40:30 by ruida-si          #+#    #+#             */
-/*   Updated: 2025/01/21 16:25:21 by ruida-si         ###   ########.fr       */
+/*   Updated: 2025/01/21 20:10:58 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	key_hook(int keycode, t_mlx *mem);
 static int	to_close(t_mlx *mem);
 static void	clean_exit(t_mlx mem);
 
-static void	fill_image(t_point **map, int **p, t_map mp, t_image image)
+static void	fill_image(t_point **map, int *img, t_map mp, t_image image)
 {
 	int	i;
 	int	j;
@@ -28,9 +28,9 @@ static void	fill_image(t_point **map, int **p, t_map mp, t_image image)
 		while (j < mp.width)
 		{
 			if (i != mp.height -1)
-				draw_line(map[i][j], map[i + 1][j], p, image);
+				draw_line(map[i][j], map[i + 1][j], img, image);
 			if (j != mp.width -1)
-				draw_line(map[i][j], map[i][j + 1], p, image);
+				draw_line(map[i][j], map[i][j + 1], img, image);
 			j++;
 		}
 		i++;
@@ -54,7 +54,7 @@ void	create_image(t_point **map, int wd, int ht)
 	mem.img = mlx_new_image(mem.mlx, image.width, image.height);
 	mem.addr = (int *)mlx_get_data_addr(mem.img, &mem.bits_per_pixel,
 			&mem.line_length, &mem.endian);
-	fill_image(map, &mem.addr, mp, image);
+	fill_image(map, mem.addr, mp, image);
 	mlx_put_image_to_window(mem.mlx, mem.win, mem.img, 0, 0);
 	mlx_key_hook(mem.win, key_hook, &mem);
 	mlx_hook(mem.win, 17, 0, to_close, &mem);

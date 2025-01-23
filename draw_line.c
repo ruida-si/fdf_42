@@ -6,7 +6,7 @@
 /*   By: ruida-si <ruida-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:12:23 by ruida-si          #+#    #+#             */
-/*   Updated: 2025/01/21 17:03:07 by ruida-si         ###   ########.fr       */
+/*   Updated: 2025/01/21 20:02:13 by ruida-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 static int	get_gradient(int a, int b, int i, int steps);
 static int	ft_abs(int n);
 
-void	draw_line(t_point a, t_point b, int **p, t_image image)
+void	draw_line(t_point a, t_point b, int *img, t_image image)
 {
-	int		*img;
 	t_line	line;
 	int		i;
 
-	img = *p;
 	line.dx = b.x - a.x;
 	line.dy = b.y - a.y;
 	if (ft_abs(line.dx) > ft_abs(line.dy))
